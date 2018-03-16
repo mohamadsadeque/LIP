@@ -1,0 +1,29 @@
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+int fat(int a);
+int n, r;
+int kombi;
+
+int main()
+{
+    cin >> n;
+    cin >> r;
+    kombi= (fat(n)) / (fat(r) * fat(n-r));
+    cout << kombi << endl;
+    return 0;
+
+}
+
+int fat(int a) {
+    if(a == 0){
+        return 1;
+
+    }
+    else{
+        return a*fat(a-1);
+
+    }
+}
