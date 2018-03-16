@@ -1,0 +1,28 @@
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+int numero;
+int soma = 0;
+int digitos(int num){
+    int c = 1;
+    while(num/10 > 0){
+        c++;
+        num = num/10;
+    }
+    return c;
+}
+
+int main()
+{
+    cin >> numero;
+    cout << "digitos: " <<digitos(numero)<< " "<< endl;
+
+    for(int i =  digitos(numero); i > 0 ; i-- ){
+       soma += (numero%10);
+       numero = numero/10;
+    }
+    cout << "SOMA : " << soma << endl;
+    return 0;
+}
