@@ -1,0 +1,25 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+int int_raiz(int n);
+int numero;
+
+int main()
+{
+    cin >> numero;
+    cout << int_raiz(numero) << endl;
+
+    return 0;
+}
+
+int int_raiz(int n){
+    int impar = 1;
+    int cont = 0;
+    while(n - impar >= 0){
+        n -= impar;
+        impar+= 2;
+        cont++;
+    }
+    return cont;
+}
