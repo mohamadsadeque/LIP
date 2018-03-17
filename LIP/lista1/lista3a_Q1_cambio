@@ -1,0 +1,61 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+int cambio(float valor, char atual, char convertido );
+
+int main()
+{
+    float dinheiro;
+    char moeda_atual, moeda_convertida;
+
+    cout << "Valor que você possui" << endl;
+    cin >> dinheiro;
+    while(dinheiro < 0){
+        cout << "INVALIDO, DIGITE NOVAMENTE: " << endl;
+        cin >> dinheiro;
+    }
+    cout << " Moeda que voce possui: " << endl;
+    cin >> moeda_atual;
+    while( moeda_atual != 'r' && moeda_atual != 'd' && moeda_atual != 'p' ){
+        cout << "TIPO INVALIDO, DIGITE NOVAMENTE: " << endl;
+        cin >> moeda_atual;
+    }
+    cout << " Moeda que voce quer converter " << endl;
+    cin >> moeda_convertida;
+    while(( moeda_convertida != 'r' && moeda_convertida != 'd' && moeda_convertida != 'p')  || moeda_convertida == moeda_atual ){
+        cout << "TIPO INVALIDO, DIGITE NOVAMENTE: " << endl;
+        cin >> moeda_convertida;
+    }
+
+    cambio(dinheiro, moeda_atual, moeda_convertida);
+
+return 0;
+
+}
+
+int cambio(float valor, char atual, char convertido ){
+    switch( atual){
+    case 'r':
+        if( convertido == 'p')
+            cout << valor << " reais = " << valor/(0.2) << " pesos"<< endl;
+        else
+            cout << valor << " reais = " << valor/(3.52) << " dolares"<< endl;
+    break;
+    case 'd':
+         if( convertido == 'r')
+            cout << valor << " dolares = " << 3.52*valor << " reais"<< endl;
+        else
+            cout << valor << " dolares = " << 15.2*valor << " pesos"<< endl;
+    break;
+    case 'p' : //PESOS
+     if( convertido == 'r')
+            cout << valor << " pesos = " << 0.2*valor << " reais"<< endl;
+        else
+            cout << valor << " pesos = " << valor/(15.2) << " dolares"<< endl;
+    break;
+
+    }
+    return 0;
+}
+
