@@ -21,7 +21,7 @@ int main()
             if(j == 0){
                 cout << 1 << " ";
             }
-            if(j == 1)
+            else if(j == 1)
                 cout << i << " ";
             else
                 cout << pot(i, j) << " ";
