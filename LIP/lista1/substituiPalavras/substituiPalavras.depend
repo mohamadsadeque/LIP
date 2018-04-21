@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1524328429 source:c:\users\moham\desktop\faculdade\lip\nova pasta\substituipalavras\main.cpp
+	<iostream>
+	<ctype.h>
+	<cstring >
+
