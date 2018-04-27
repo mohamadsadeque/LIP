@@ -21,7 +21,7 @@ void ordenaString(char str[]){
 
 
 void ordenaPalavra(char texto[], int tam){
-    char alpha[tam], digit[tam];
+    char alpha[tam] = {}, digit[tam]={};
     int cont1 = 0;
     int cont2 = 0;
     int cont3 = 0;
