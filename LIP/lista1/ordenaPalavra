@@ -20,8 +20,8 @@ void ordenaString(char str[]){
 }
 
 
-void ordenaPalavra(char texto[], int tam){
-    char alpha[tam] = {}, digit[tam]={};
+void ordenaPalavra(char texto[]){
+    char alpha[strlen(texto)] = {}, digit[strlen(texto)]={};
     int cont1 = 0;
     int cont2 = 0;
     int cont3 = 0;
@@ -52,9 +52,8 @@ void ordenaPalavra(char texto[], int tam){
 
 int main()
 {
-
     cin. getline (text , TAM );
-    ordenaPalavra(text, TAM);
+    ordenaPalavra(text);
     cout << text;
     return 0;
 }
