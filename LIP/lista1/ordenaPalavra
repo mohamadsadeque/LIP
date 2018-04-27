@@ -1,0 +1,60 @@
+#include <iostream>
+#include <ctype.h>
+#include <cstring >
+#include <cmath>
+#define TAM 50
+using namespace std;
+char text[TAM];
+
+void ordenaString(char str[]){
+    char aux;
+    for(int j = 1; j < strlen(str); j++ ){
+        aux = str[j];
+       int i = j - 1;
+            while((i >= 0) && (aux < str[i]) ){
+                str[i+1] = str[i] ;
+                i--;
+            }
+            str[i+1] = aux;
+    }
+}
+
+
+void ordenaPalavra(char texto[], int tam){
+    char alpha[tam], digit[tam];
+    int cont1 = 0;
+    int cont2 = 0;
+    int cont3 = 0;
+    for(int i = 0; i < strlen(texto); i++){
+        if(texto[i] >= 97 ){
+            alpha[cont1] = texto[i];
+            cont1++;
+        }
+        else if( texto[i] >= 48 && texto[i]  <= 57){
+            digit[cont2] = texto[i];
+            cont2++;
+        }
+    }
+    ordenaString(alpha);
+    cout << alpha << endl;
+    ordenaString(digit);
+    cout << digit << endl;
+
+    for(int i = 0; i < strlen(alpha); i++){
+        texto[cont3] = alpha[i];
+        cont3++;
+    }
+    for(int i = 0; i < strlen(digit); i++){
+        texto[cont3] = digit[i];
+        cont3++;
+    }
+}
+
+int main()
+{
+
+    cin. getline (text , TAM );
+    ordenaPalavra(text, TAM);
+    cout << text;
+    return 0;
+}
