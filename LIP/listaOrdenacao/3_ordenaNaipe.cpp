@@ -1,17 +1,17 @@
 /*
-3. Um jogador de baralho possui um conjunto de n na mão e deseja ordená-
-las com relação ao naipe de forma que sigam a seguinte ordem: copas,
-espadas, ouros e paus. Além disso, em cada naipe, as cartas devem
-estar em ordem (A < 2 < · · · < 10 < J < Q < K). Escreva um procedimento
+3. Um jogador de baralho possui um conjunto de n na mÃ£o e deseja ordenÃ¡-
+las com relaÃ§Ã£o ao naipe de forma que sigam a seguinte ordem: copas,
+espadas, ouros e paus. AlÃ©m disso, em cada naipe, as cartas devem
+estar em ordem (A < 2 < Â· Â· Â· < 10 < J < Q < K). Escreva um procedimento
 que recebe um vetor de caracteres naipes e um vetor de inteiros
-representando numeros, respectivamente, os naipes e a numeração das
+representando numeros, respectivamente, os naipes e a numeraÃ§Ã£o das
 n cartas. Esse procedimento deve ordenar as cartas conforme desejado.
-A entrada e saída de dados deve ser realizada na função principal.
+A entrada e saÃ­da de dados deve ser realizada na funÃ§Ã£o principal.
 
-• Entrada: N=8
+â€¢ Entrada: N=8
 naipes={c e p o c p e o}
 numeros={5 3 4 8 2 9 13 1}
-• Saída: naipes={c c e e o o p p} e numeros={2 5 3 13 1 8 4 9}
+â€¢ SaÃ­da: naipes={c c e e o o p p} e numeros={2 5 3 13 1 8 4 9}
 */
 
 
