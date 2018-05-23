@@ -1,68 +1,331 @@
 #include <iostream>
-#include <ctype.h>
-#include <cstring >
-#include <cmath>
-#define TAM 50
+#include <stdlib.h>
+
 using namespace std;
-char palavra1[TAM], palavra2[TAM], texto[100];
-int dif,tam1,tam2;
-void repete(char text[], char word1[], char word2[]){
-    int b = 1;
-    for(int i = 0; i < strlen(text); i++)
+int modo;
+char x,y,novoX,novoY;
+int brancas = 12;
+int pretas = 12;
+int a,b,A,B;
+char u,v;
+
+char tab[8][8]
+{
+    {'#','x','#','x','#','x','#','x'},
+    {'x','#','x','#','x','#','x','#'},
+    {'#','x','#','x','#','x','#','x'},
+    {' ','#',' ','#',' ','#',' ','#'},
+    {'#',' ','#',' ','#',' ','#',' '},
+    {'o','#','o','#','o','#','o','#'},
+    {'#','o','#','o','#','o','#','o'},
+    {'o','#','o','#','o','#','o','#'},
+};
+
+void ImprimeTabuleiro(char tab[8][8])
+{
+    cout << "          a   b   c   d   e   f   g   h" << endl;
+    cout << "        |---|---|---|---|---|---|---|---|" << endl;
+    cout << "     1  ||||| " << tab[0][1] << " ||||| "<< tab[0][3] <<" ||||| "<< tab[0][5] << " ||||| " << tab[0][7] << " |" << endl;
+    cout << "        |---|---|---|---|---|---|---|---|" << endl;
+    cout << "     2  | "<<tab[1][0]<<" ||||| " <<tab[1][2]<<" ||||| "<< tab[1][4]<<" ||||| " <<tab[1][6]<<" ||||| "<<endl;
+    cout << "        |---|---|---|---|---|---|---|---|" << endl;
+    cout << "     3  ||||| " << tab[2][1] << " ||||| "<< tab[2][3] <<" ||||| "<< tab[2][5] << " ||||| " << tab[2][7] << " |" << endl;
+    cout << "        |---|---|---|---|---|---|---|---|" << endl;
+    cout << "     4  | "<<tab[3][0]<<" ||||| " <<tab[3][2]<<" ||||| "<< tab[3][4]<<" ||||| " <<tab[3][6]<<" ||||| "<<endl;
+    cout << "        |---|---|---|---|---|---|---|---|" << endl;
+    cout << "     5  ||||| " << tab[4][1] << " ||||| "<< tab[4][3] <<" ||||| "<< tab[4][5] << " ||||| " << tab[4][7] << " |" << endl;
+    cout << "        |---|---|---|---|---|---|---|---|" << endl;
+    cout << "     6  | "<<tab[5][0]<<" ||||| " <<tab[5][2]<<" ||||| "<< tab[5][4]<<" ||||| " <<tab[5][6]<<" ||||| "<<endl;
+    cout << "        |---|---|---|---|---|---|---|---|" << endl;
+    cout << "     7  ||||| " << tab[6][1] << " ||||| "<< tab[6][3] <<" ||||| "<< tab[6][5] << " ||||| " << tab[6][7] << " |" << endl;
+    cout << "        |---|---|---|---|---|---|---|---|" << endl;
+    cout << "     8  | "<<tab[7][0]<<" ||||| " <<tab[7][2]<<" ||||| "<< tab[7][4]<<" ||||| " <<tab[7][6]<<" ||||| "<<endl;
+    cout << "        |---|---|---|---|---|---|---|---|" << endl;
+    cout << "          a   b   c   d   e   f   g   h" << endl;
+
+}
+
+void novamente(char &x, char &y, char &novoX, char &novoY, int jogador,int &a,int &b, int &A, int &B)
+{
+    system("cls");
+    ImprimeTabuleiro(tab);
+    cout << "Nao e possivel efetuar a jogada!, digite novamente: \n" << endl;
+    cout << "Jogador " <<  jogador << " , digite a peca que deseja mover (exemplo: b 3)" << endl;
+    cin >> x >> y;
+    cout << "Jogador " <<  jogador << " , digite o local que a peca irá se mover (exemplo: c 4)" << endl;
+    cin >> novoX >> novoY;
+    a = (int)x - 97;
+    b = (int)y - 49;
+    A = (int)novoX - 97;
+    B = (int)novoY - 49;
+
+}
+
+
+void movimento(char x, char y,char novoX, char novoY,int jogador,int &brancas, int &pretas, char tab[8][8])
+{
+    char XY = tab[novoY][novoX];
+    if(( x >= 0 && x <= 8) &&  (y >= 0 && y <= 8 ) && ( novoX >= 0 && novoX <= 8) &&  (novoY >= 0 && novoY <= 8 ) )
     {
-        for(int j = 0; j < strlen(word1); j++)
+        // PECA PRETA (X)
+        if(tab[y][x] == 'x' && jogador == 1)
         {
-            if(text[i+j] != word1[j])
+            // Movimento simples para frente:
+            if ( (novoY == (y+1)) && ((novoX == (x-1) || novoX == (x+1) ) &&  XY == ' ' ))
             {
-                b = 0;
-                break;
+                tab[novoY][novoX] = tab[y][x];
+                tab[y][x] = ' ';
             }
-            b = 1;
-        }
-        if(b == 1)
-        {
-            tam1 = strlen(palavra1);
-            tam2 = strlen(palavra2);
-            dif = tam1 - tam2;
-            if(dif < 0)
+            // Captura pela esquerda para frente
+            else if( ( tab[y+1][x-1] == 'o' ) && ((novoY == (y+2)) && novoX == (x-2)) && XY == ' '  )
             {
-                for(int n=0; n < abs(dif); n++)
-                {
-                    for(int m = strlen(text); m > (i+tam1+n)-1; m--)
-                    {
-                        text[m+1]  = text[m];
-                    }
-                }
-            }
-            else if(dif > 0){
-                for(int n=0; n < abs(dif); n++)
-                {
-                    for(int m = (i+tam1-n-1); m < strlen(text); m++)
-                    {
-                        text[m-1]  = text[m];
-                    }
-                }
-                text[strlen(text)- dif] = 0;
+                tab[novoY][novoX] = 'x' ;
+                tab[y][x] = ' ';
+                tab[y+1][x-1] = ' ';
+                brancas--;
 
             }
-            for(int k = 0 ; k < strlen(word2); k++)
+            // Captura pela direita para frente
+            else if( ( tab[y+1][x+1] == 'o' ) && ((novoY == (y+2)) && novoX == (x+2)) && XY == ' '  )
             {
-                text[i+k] = word2[k];
+                tab[novoY][novoX] = 'x' ;
+                tab[y][x] = ' ';
+                tab[y+1][x+1] = ' ';
+                brancas--;
+            }
+            // Captura pela esquerda para tras
+            else if( ( tab[y-1][x-1] == 'o' ) && ((novoY == (y-2)) && novoX == (x-2)) && XY == ' '  )
+            {
+                tab[novoY][novoX] = 'x' ;
+                tab[y][x] = ' ';
+                tab[y-1][x-1] = ' ';
+                brancas--;
+
+            }
+            // Captura pela direita para tras
+            else if( ( tab[y-1][x+1] == 'o' ) && ((novoY == (y-2)) && novoX == (x+2)) && XY == ' '  )
+            {
+                tab[novoY][novoX] = 'x' ;
+                tab[y][x] = ' ';
+                tab[y-1][x+1] = ' ';
+                brancas--;
+            }
+            else
+            {
+                novamente(x,y,novoX,novoY, jogador,a,b,A,B);
+                movimento(a,b,A,B,jogador,brancas, pretas,tab);
+            }
+
+        }
+
+        // PECA BRANCA (O)
+        else if(tab[y][x] == 'o' && (jogador == 2 || jogador == 3))
+        {
+            // Movimento simples para frente:
+            if ( (novoY == (y-1)) && ((novoX == (x-1) || novoX == (x+1) ) &&  XY == ' '  ))
+            {
+                tab[novoY][novoX] = tab[y][x];
+                tab[y][x] = ' ';
+
+            }
+            // Captura pela esquerda
+            else if( ( tab[y-1][x-1] == 'x' ) && ((novoY == (y-2)) && novoX == (x-2)) && XY == ' '  )
+            {
+                tab[novoY][novoX] = 'o' ;
+                tab[y][x] = ' ';
+                tab[y-1][x-1] = ' ';
+                pretas--;
+
+            }
+
+            // Captura pela direita
+            else if( ( tab[y-1][x+1] == 'x' ) && ((novoY == (y-2)) && novoX == (x+2)) && XY == ' '  )
+            {
+                tab[novoY][novoX] = 'o' ;
+                tab[y][x] = ' ';
+                tab[y-1][x+1] = ' ';
+                pretas--;
+
+
+            }
+            // Captura pela esquerda para tras
+            else if( ( tab[y+1][x-1] == 'x' ) && ((novoY == (y+2)) && novoX == (x-2)) && XY == ' '  )
+            {
+                tab[novoY][novoX] = 'o' ;
+                tab[y][x] = ' ';
+                tab[y+1][x-1] = ' ';
+                pretas--;
+
+            }
+
+            // Captura pela direita para tras
+            else if( ( tab[y+1][x+1] == 'x' ) && ((novoY == (y+2)) && novoX == (x+2)) && XY == ' '  )
+            {
+                tab[novoY][novoX] = 'o' ;
+                tab[y][x] = ' ';
+                tab[y+1][x+1] = ' ';
+                pretas--;
+
+
+            }
+
+            else
+            {
+                if(jogador == 1 || jogador == 2){
+                novamente(x,y,novoX,novoY, jogador,a,b,A,B);
+                }
+                
+
+                movimento(a,b,A,B,jogador,brancas, pretas,tab);
             }
         }
+
+        else
+        {
+            novamente(x,y,novoX,novoY, jogador,a,b,A,B);
+            movimento(a,b,A,B,jogador,brancas, pretas,tab);
+        }
+
+
     }
+    else
+    {
+        novamente(x,y,novoX,novoY, jogador,a,b,A,B);
+        movimento(a,b,A,B,jogador,brancas, pretas,tab);
+    }
+
 }
+
+bool chanceCaptura(char tab[8][8],int &compX, int &compY, int &newCompX, int &newCompY){
+    for(int i = 0; i < 8; i++){
+        for(int j = 0; j <8; j++){
+            if(tab[j][i] == 'o'){
+                // Esquerda e Frente
+                if(tab[j-1][i-1] == 'x' && tab[j-2][i-2] == ' ' ){
+                        compX = i;
+                        compY = j;
+                        newCompX = i-2;
+                        newCompY = j-2;
+                        return true;
+
+                }
+                // Direita e Frente
+               else if(tab[j-1][i+1] == 'x' && tab[j-2][i+2] == ' ' ){
+                        compX = i;
+                        compY = j;
+                        newCompX = i+2;
+                        newCompY = j-2;
+                        return true;
+
+                }
+                // Esquerda e para Trás
+                else if(tab[j+1][i-1] == 'x' && tab[j-2][i-2] == ' ' ){
+                        compX = i;
+                        compY = j;
+                        newCompX = i-2;
+                        newCompY = j-2;
+                        return true;
+
+                }
+                // direita e para Trás
+                else if(tab[j+1][i+1] == 'x' && tab[j-2][i+2] == ' ' ){
+                        compX = i;
+                        compY = j;
+                        newCompX = i+2;
+                        newCompY = j-2;
+                        return true;
+
+                }
+
+            }
+
+        }
+
+    }
+    return false;
+}
+
+
 
 int main()
 {
-    int a,b;
-    cin.getline(palavra1 , TAM);
-    cin.getline(palavra2 , TAM);
-    cin.getline(texto , TAM);
-    repete(texto, palavra1, palavra2);
+    while(1)
+    {
+        cout << "Digite a opção que deseja: " << endl;
+        cout << "1. Jogador Vs Jogador" << endl;
+        cout << "2. Jogador Vs Computador" << endl;
+        cin >> modo;
+        while(modo != 1 && modo != 2)
+        {
+            cout << "Modo invalido, digite novamente: "<< endl;
+            cin >> modo;
+        }
+        switch(modo)
+        {
+        // JOGAODR VS JOGADOR
+        case 1:
+            while(pretas > 0)
+            {
+                system("cls");
+                ImprimeTabuleiro(tab);
+                cout << "Jogador 1 (x) , digite a peca que deseja mover (exemplo: b 3)" << endl;
+                cin >> x >> y;
+                a = (int)x - 97;
+                b = (int)y - 49;
+                cout << "Jogador 1 (x) , digite para onde peca deve ser movida (exemplo: b 3)" << endl;
+                cin >> novoX >> novoY;
+                A = (int)novoX - 97;
+                B = (int)novoY - 49;
 
-cout << texto << endl;
+                movimento(a,b,A,B,1,brancas, pretas, tab);
+                ImprimeTabuleiro(tab);
+                if(brancas == 0)
+                {
+                    break;
+                }
+                if(chanceCaptura(tab, a, b, A, B)){
+                        u = a + 97;
+                        v = b + 49;
+                    cout << "EXISTE CHANCE DE CAPTURA EM:" << u << " " << v << endl;
+                }
+                cout << "Jogador 2 (o) , digite a peca que deseja mover (exemplo: b 3)" << endl;
+                cin >> x >> y;
+                a = (int)x - 97;
+                b = (int)y - 49;
+                cout << "Jogador 2 (o) , digite para onde peca deve ser movida (exemplo: b 3)" << endl;
+                cin >> novoX >> novoY;
+                A = (int)novoX - 97;
+                B = (int)novoY - 49;
+                movimento(a,b,A,B,2, brancas, pretas, tab);
+            }
+            system("cls");
+            if(brancas == 0)
+                cout<< "PRETAS GANHARAM" << endl;
+            else
+                cout << "BRANCAS GANHARAM " << endl;
+            break;
+
+        // JOGADOR VS COMPUTADOR
+        case 2:
+                system("cls");
+                ImprimeTabuleiro(tab);
+                cout << "Jogador 1 (x) , digite a peca que deseja mover (exemplo: b 3)" << endl;
+                cin >> x >> y;
+                a = (int)x - 97;
+                b = (int)y - 49;
+                cout << "Jogador 1 (x) , digite para onde peca deve ser movida (exemplo: b 3)" << endl;
+                cin >> novoX >> novoY;
+                A = (int)novoX - 97;
+                B = (int)novoY - 49;
+                movimento(a,b,A,B,1,brancas, pretas, tab);
+                ImprimeTabuleiro(tab);
 
 
-    return 0;
+        break;
+
+
+        }
+
+        return 0;
+    }
 }
