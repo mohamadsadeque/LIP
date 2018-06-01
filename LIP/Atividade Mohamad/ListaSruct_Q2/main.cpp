@@ -1,5 +1,5 @@
 #include <iostream>
-#define TAM 3
+#define TAM 2
 using namespace std;
 
 struct local{
@@ -22,6 +22,7 @@ nacao pais[TAM];
 int main()
 {
     for(int i = 0; i < TAM; i++ ){
+
         cout << "NOME:" <<endl;
         cin.getline(pais[i].nome , 40);
         cout << "CAPITAL:" <<endl;
@@ -36,8 +37,9 @@ int main()
         cin >> (pais[i].coordenadas.latitude);
         cout << "LONGITUDE" <<endl;
         cin >> (pais[i].coordenadas.longitude);
+        cin.ignore();
 
     }
-    cout << pais[0].nome << " " << pais[2].nome << endl;
+    cout << pais[0].nome << " " << pais[1].nome << endl;
 
 }
