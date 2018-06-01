@@ -2,12 +2,13 @@
 #include <stdlib.h>
 #include <cstdlib>
 #include <ctime>
+#include <climits>
 using namespace std;
 int n,m,id_N,id_M;
 int somaLinha = 0;
 int produtoColuna = 1;
 int maiorSomaLinha = -1;
-int menorProdutoColuna = 99999999999;
+int menorProdutoColuna = INT_MAX;
 int main()
 {
     srand(time(NULL));
@@ -19,7 +20,7 @@ int main()
     }
     int v[n][m];
     for(int i = 0; i < n; i++){
-        for(int j = 0; j< n; j++){
+        for(int j = 0; j< m; j++){
             v[i][j] = 1 + rand()%10;
         }
     }
@@ -44,7 +45,7 @@ int main()
         produtoColuna = 1 ;
     }
     for(int i = 0; i < n; i++){
-        for(int j = 0; j< n; j++){
+        for(int j = 0; j< m; j++){
             cout << v[i][j] << " ";
         }
         cout << endl;
