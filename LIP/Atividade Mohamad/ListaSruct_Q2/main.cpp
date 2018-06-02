@@ -16,12 +16,19 @@ struct nacao{
     local coordenadas;
 };
 
-nacao pais[TAM];
+
 
 
 int main()
 {
-    for(int i = 0; i < TAM; i++ ){
+    int n;
+    cout << "ESCREVA A QUANTIDADE DE PAISES" << endl;
+    cin >> n;
+    cin.ignore();
+
+    nacao pais[n];
+
+    for(int i = 0; i < n; i++ ){
 
         cout << "NOME:" <<endl;
         cin.getline(pais[i].nome , 40);
@@ -40,6 +47,6 @@ int main()
         cin.ignore();
 
     }
-    cout << pais[0].nome << " " << pais[1].nome << endl;
+
 
 }
